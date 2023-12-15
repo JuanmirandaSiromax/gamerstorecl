@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import index, cerrar_sesion, formulario, eliminar_usuario, editar_datos, principal, listado_usuarios, terror, accion, aventura, carreras, supervivencia, compra,listado_juegos, crear_juego, juegos_show, eliminar_juego, juegos_editar, logout_view, recuperar_contrasenna
 
+from .views import index, cerrar_sesion, formulario, eliminar_usuario, editar_datos, principal, listado_usuarios, terror, accion, aventura, carreras, supervivencia, compra,listado_juegos, crear_juego, juegos_show, eliminar_juego, juegos_editar, logout_view, recuperar_contrasenna, vista_error_404
 
 urlpatterns = [
     # link Juegos
@@ -30,3 +30,4 @@ urlpatterns = [
     
 
 ]
+

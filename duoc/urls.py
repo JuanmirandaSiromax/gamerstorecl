@@ -19,6 +19,9 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_api.viewsLogin import login
+from django.conf.urls import handler404
+
+handler404 = 'mientretencion.views.vista_error_404'
 
 urlpatterns = [
     path('admin/', admin.site.urls),

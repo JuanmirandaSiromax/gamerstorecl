@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import role_requiered
 from django.contrib.auth.models import User
+from django.conf.urls import handler404
 
 # Create your views here.
 
@@ -305,3 +306,7 @@ def eliminar_juego (request, id):
     juego.delete()
     messages.success(request, 'Se ha Eliminado Correctamente')
     return redirect('listado_juegos')
+
+# Vista en caso de que no encuentra una ruta válida
+def vista_error_404(request, exception):
+    return render(request, '404.html', status=404)
