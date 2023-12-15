@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'duoc.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521/orcl',
-        'USER': 'system',
-        'PASSWORD': 'sirona',
+        'NAME': 'localhost:1521/xe',
+        'USER': 'gamerstore',
+        'PASSWORD': 'gamerstore123',
 
         'TEST':{
             'USER': 'default_test',
