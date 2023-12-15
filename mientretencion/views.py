@@ -31,7 +31,7 @@ def index(request):
                 messages.error(request, 'El perfil de usuario no está configurado correctamente.')
                 return redirect('principal')
             
-            return redirect('listado_juegos')
+            return redirect('home')
         else:
             context = {
                 'error': 'Error, inténtelo nuevamente'
@@ -40,6 +40,9 @@ def index(request):
 
     return render(request, 'auth/index.html')
 
+@login_required
+def home(request):
+    return render(request, 'auth/home.html')
     
 @login_required
 def listado_usuarios(request):
@@ -99,7 +102,7 @@ def formulario(request):
 
         messages.success(request, 'Se ha creado la cuenta correctamente como cliente')
 
-        return redirect('listado_usuarios')
+        return redirect('home')
         
     else:
         return render(request, 'auth/formulario.html')  

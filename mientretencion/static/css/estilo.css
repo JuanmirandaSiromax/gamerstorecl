@@ -348,4 +348,10 @@ a{
   color: #1473E6;
 }
 
-
+.titulo-novedades{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #f1841d;
+}
