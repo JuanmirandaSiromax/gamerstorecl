@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenido %}
+<h1>Editar Juego {{ juego.nombre }}</h1>
+
+<div class = "container">
+    
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{% url 'listado_juegos' %}" class="btn btn-dark  me-md-2">Volver</a>
+                  </div>
+                  <center>
+                  {% if juego.imagen %}
+                  <img src="{{ juego.imagen.url }}" alt="{{ juego.nombre }}" width='200px'>
+                  {% else %}
+                  <p>-</p>
+                  {% endif %}
+                  </center>
+                    
+    
+                    {% if messages %}
+                    {% for message in messages %}
+                      <div class="alert alert-{{message.tags}} alert-dismissible fade show" role='alert'>
+                        {{ message }}
+                        <button type= "button" class="btn-close" data-bs-dissmiss="alert" aria-label="close"></button>
+                      </div>
+                    {% endfor %}
+                    {% endif %}
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" id="formulario" method="POST" enctype="multipart/form-data">
+                              {% csrf_token %}
+    
+                              
+                              <div class="mb-3" id="div-cargo">
+                                <label for="" class="form-label">Codigo</label>
+                                <input type="text" class="form-control" id="codigo_invent"  name="codigo_invent" value="{{ juego.codigo_invent}}">
+                              </div>
+    
+                              <div class="mb-3">
+                                <label for="" class="form-label">NOMBRE</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ juego.nombre }}">
+
+                                
+                              </div>
+    
+                              <div class="mb-3" id="div-cargo">
+                                <label for="" class="form-label">Descripcion</label>
+                                <textarea name="descripcion" class="form-control" id="Descripcion"  cols"10" row="5" placeholder="">{{ juego.descripcion }}</textarea>
+                              </div>
+    
+                              <div class="mb-3">
+                                <label for="" class="form-label">Categoria</label>
+                                <select class="form-select" aria-label="Default select example" name="categoria">
+                                {% for categoria in categorias %}
+                                  {% if categoria.id == juego.categoria.id %}
+                                    <option value="{{ categoria.id }}" selected>{{ categoria.nombre }}</option>
+                                  {% else %}
+                                    <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                                  {% endif %}
+                                  
+                                {% endfor %}
+                                </select>
+                              </div>
+                              <div class="mb-3">
+                                <label for="" class="form-label">Imagen</label>
+                                <input type="file" class="form-control" id="imagen"  name="imagen" >
+                              </div>
+
+                              <div class="d-grid">
+                                  <button type="submit" class="btn btn-outline-primary">ENVIAR</button>
+                              </div>
+                            </form>
+                        </div>
+                      </div>
+                    
+    
+    
+                </div>
+               
+            </div>
+        </div>
+{% endblock %}
+
+<footer>
+  <div class="column4">
+      <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
+  </div>
+
+</footer>

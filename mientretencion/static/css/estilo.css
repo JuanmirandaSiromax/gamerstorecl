@@ -1,0 +1,253 @@
+body {
+    background-image:url('../imagenes/Fondo2.png');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color:white;
+    
+}
+ .box1 {
+  border-radius: 10px;
+  width: 49%;
+  padding: 40px;
+  border: 1px solid #6b6969;
+  margin: 5px;
+  background-color: #888585;
+  color: #fa8f04;
+  }
+ .box2 {
+  border-radius: 10px;
+  width: 49%;
+  padding: 40px;
+  border: 1px solid #f1841d;
+  margin: 5px;
+  background-color: #fa8f04;
+  color: #fafafa;
+  }
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  .categoria {
+    color:white;
+    padding: 35px;
+    margin: 20px;
+    text-align: center;
+    
+    
+  }
+  .column2 {
+    text-align: center;
+    float: left;
+    width: 50%; /* Ajusta el ancho de acuerdo a tus necesidades */
+    padding: 100px;
+    box-sizing: border-box;
+  }
+  .column3 {
+    text-align: center;
+    float: left;
+    width: 25%; /* Ajusta el ancho de acuerdo a tus necesidades */
+    padding: 0px;
+  }
+  .column3   img {
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+  }
+  .column4 {
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-size: medium;
+  }
+
+
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  p{
+    color: white;
+    font-family: 'Segoe UI';
+    font-size: smaller;
+    text-align: justify;
+  }
+
+  h1{
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI';
+    border: 4px;
+
+  }
+
+  h2{
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI';
+    border: 4px;
+    
+  }
+
+  h3{
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI';
+    border: 2px;
+  }
+
+  h4{
+    color: white;
+    font-family: 'Segoe UI';
+    border: 2px;
+    text-align:left;
+  }
+
+
+  header {
+    text-align: center;
+    padding: 5px 0;
+    
+  }
+  header img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .estilo-footer {
+    border-radius: 10px;
+    background-color: orange;
+    color: white;
+    width: 100%;
+    text-align: right;
+    
+}
+.bg-orange {
+  background-color: rgb(247, 135, 31) !important; 
+}
+
+  .boton-enlace {
+    padding: 10px;
+    background-color: #250031;
+    color: white;
+    text-decoration: none;
+    text-align: right;
+    border: none;
+    border-radius: 6%;
+    cursor: pointer;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-size: 100%;
+    
+    
+  }
+  .boton-enlace:hover {
+    background-color: #14002b;
+  }
+  .boton1{
+    background-color:  rgb(52, 52, 231);
+    border: 10px;;
+    color:white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-radius: 10%;
+    cursor: pointer;
+    width: 40%;
+    margin: 3%;
+
+  }
+  .boton1:hover{
+    background-color: #14002b;
+  }
+
+  .boton2{
+    background-color:  white;
+    border: 10px;;
+    color: rgb(245, 135, 10);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    border-radius: 10%;
+    cursor: pointer;
+    width: 40%;
+    margin: 3%;
+
+  }
+  .boton2:hover{
+    background-color: #14002b;
+  }
+  .button {
+    background-color:  #250031;
+    border:none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 30px;
+  }
+  .boton:hover {
+    background-color: #14002b;
+  }
+
+  .card {
+    background-color:transparent;
+    border-color: none;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI';
+    color: rgb(170, 21, 21);
+    overflow: hidden;
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-img-top {
+    height: 400px;
+    width: auto;
+    object-fit:cover;
+  }
+
+  .offcanvas-start {
+    background-color: #14002b;
+    color: white;
+    font-family: 'Segoe UI';
+  }
+
+  .btn-primary {
+    background-color: #250031;
+    color: white;
+    border-color: #250031;
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    font-size: 100%;
+  }
+
+  .btn-primary:hover {
+    background-color: #14002b;
+    border-color: #14002b;
+  }
+
+  .list-group-item {
+    background-color: #14002b;
+  }
+  .header{
+    text-align: center;
+  }
+
+  .img-thumbnail{
+    width: 80%;
+    height: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }

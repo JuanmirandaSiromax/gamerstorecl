@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenido %}
+
+<h1> Editar Usuario {{ usuario.username}}</h1>
+<br>
+<br>
+<br>
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}} alert-dismissible fade show" role='alert'>
+            {{ message }}
+            <button type= "button" class="btn-close" data-bs-dissmiss="alert" aria-label="close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}
+        <form id="formulario_registro" action=""  method="post">
+        {% csrf_token %}
+        
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 mb-3">
+                    <label for="" class="form-label"> Nombre Completo </label>
+                    <input type="text" class="form-control" name="first_name" id="first_name"
+                        placeholder="{{usuario.first_name}}">
+                    <small class="text-danger" id="nombre-error"> </small>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 mb-3">
+                    <label for="" class="form-label"> Nombre de Usuario </label>
+                    <input type="text" class="form-control" name="username" id="username"
+                        placeholder="{{usuario.username}}">
+                    <small class="text-danger" id="NombreUsuario-error"> </small>
+                
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="" class="form-label"> Ingrese Contraseña </label>
+                    <input type="text" class="form-control" name="password" id="password"
+                        placeholder="longitud entre 6 y 18 caracteres">
+                    
+
+                </div>
+                <div class="col-6 mb-3">
+                    <label for="" class="form-label"> Confirme Contraseña </label>
+                    <input type="text" class="form-control" name="password2" id="password2"
+                        placeholder="Debe Ser igual A Contraseña">
+                    
+                </div>
+                {% if password.value == password2.value%}
+                    
+                    <div class="col-6 mb-3">
+                        <label for="" class="form-label"> Ingrese Correo Electronico </label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="{{usuario.email}}">
+                        <small class="text-danger" id="Correo-error"> </small>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="role">Rol:</label>
+                        <select id="role" name="role" class="form-control">
+                        <option selected>Seleccione un rol</option>
+                        <option value="cliente" {% if user_profile.role == 'cliente' %}selected{% endif %}>Cliente</option>
+                        <option value="admin" {% if user_profile.role == 'admin' %}selected{% endif %}>Administrador</option>      
+                        </select>
+                    </div>
+                    <center>
+                        <div class="d-grid" class="mb-3">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                <br>
+                                <button type="submit" class="boton2">Registrarse</button>
+                                <button type="reset" class="boton2">Limpiar</button>
+                                <a href="{% url 'listado_usuarios' %}" class="boton2">Volver atras</a>
+                                <br>
+                {% endif %}  
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </form>
+        <footer>
+            <div class="column4">
+                <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
+            </div>
+    
+        </footer>
+    {% endblock %}

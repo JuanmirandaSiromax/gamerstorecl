@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenido %}
+<h1>Iniciar Sesion</h1>
+<br>
+<br>
+<br>
+<div class = "container">
+    
+
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        
+                        {% if error %}
+                            <small class="text-danger" id="usuario-error">{{ error }}</small>
+                        {% endif %}
+                        
+                    <div class="col-12 mb-3">
+                        <label for="" class="form-label"> Nombre de Usuario </label>
+                        <input type="text" class="form-control" name="usuario" id="usuario"
+                        placeholder="Ingrese Nombre de Usuario">
+                        <small class="text-danger" id="NombreUsuario-error"> </small>
+
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="" class="form-label"> Ingrese Contraseña </label>
+                        <input type="password" class="form-control" name="pass" id="pass"
+                        placeholder="longitud entre 6 y 18 caracteres">
+                        <small class="text-danger" id="pass-error"> </small>
+
+                    </div>
+
+                
+                    <div class="d-grid" class="mb-3">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <br>
+                                <button type="submit" class="boton2">Iniciar Sesion</button>
+                                <button type="reset" class="boton2">Limpiar</button>
+                                <br>
+                                <br>
+                                <a href="{% url 'recuperar_contrasenna' %}""RecuperaContrasenna.html" class="boton2" style="width: 450px">Recuperar
+                                contraseña</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+      
+    </div>
+    <footer>
+
+        <h5> @Copyright Lhia Cadiz /Juan Miranda </h5>
+  
+      </footer>
+{% endblock %}
+
+

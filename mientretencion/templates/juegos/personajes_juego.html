@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block css %}
+  
+
+{% endblock %}
+
+
+{% block contenido %}
+
+<h1>Personajes Marvel</h1>
+
+
+<div class="container">
+  <div class="row" id="marvel-row">
+
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  
+    const marvel = {
+      render: () => {
+
+        const urlAPI = 'https://gateway.marvel.com:443/v1/public/characters?ts=1&apikey=3f04e7ae9e849e5b6c6905c661e66408&hash=430a64197b57386bc3abb16e45f79d14';
+        const container = document.querySelector('#marvel-row');
+        let contentHTML ='';
+
+        fetch(urlAPI)
+          .then (res => res.json())
+          .then ((json) => {
+            for (const hero of json.data.results){
+              let urlHero = hero.urls[0].url;
+              contentHTML += ` 
+              <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class='card'>
+                  <a href ="${urlHero}" target="_blank">
+                    <img src="${hero.thumbnail.path}.${hero.thumbnail.extension}" class="card-img-top" alt="${hero.name}" class="img-thumbnail">
+                    </a>
+                    <h2 class="card-title">${hero.name}</h2>
+                  </div>
+                </div>
+              </div>`;
+
+            }
+            container.innerHTML = contentHTML;
+          })
+      }
+
+    };
+
+    marvel.render();
+
+</script>
+
+<footer>
+
+  <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
+
+</footer>
+{% endblock %}
