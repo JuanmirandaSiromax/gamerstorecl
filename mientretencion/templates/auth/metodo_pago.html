@@ -10,7 +10,8 @@
 <div class="container">
     <div class="row text-center mb-4">
         <div class="col d-flex flex-column align-items-center">
-            <form method="post" action="#">
+            <form method="post" action="{% url 'venta_exitosa' %}">
+                {% csrf_token %}
                 <div class="gray-background">
                     <div class="container">
                         <div class="row">
@@ -36,7 +37,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6 d-flex align-items-center">
-                                        <img src="{% static 'imagenes/web-pay-plus.png' %}" alt="webpay" class="payment-option-image" style="width: 400px; height: auto;">
+                                        <img src="{% static 'imagenes/web-pay-plus.png' %}" alt="webpay" class="img-fluid" style="max-width: 100%; height: auto;">
                                     </div>
                                 </div>
                                 
@@ -46,12 +47,11 @@
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-4 mx-auto mt-5">
-                    <button class="btn btn-primary" type="button">Continuar</button>
+                    <button class="btn btn-primary" type="submit">Continuar</button>
                 </div>
             </form>
         </div>       
     </div>
-    
 </div>
 
 

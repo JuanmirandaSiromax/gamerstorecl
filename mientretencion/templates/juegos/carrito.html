@@ -9,40 +9,43 @@
 <div class="container">
     <div>
         <h2 class="text-center">Carrito</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="sr-only text-center">Imagen</th>
-                    <th class="text-center align-middle">Nombre</th>
-                    <th class="text-center align-middle">Cantidad</th>
-                    <th class="text-center align-middle">Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in carrito %}
+        <form method="post" action="{% url 'metodo_pago' %}">
+            <table class="table">
+                <thead>
                     <tr>
-                        <td class="text-center align-middle"><img src="{{ item.imagen_url }}" alt="{{ item.nombre }}" style="width: 150px; height: auto;"></td>
-                        <td class="text-center align-middle">{{ item.nombre }}</td>
-                        <td class="text-center align-middle">1</td>
-                        <td class="text-center align-middle">${{ item.precio }}</td>
-                        <td class="align-middle">
-                            <form method="post" action="{% url 'vista_carrito' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
-                                <button type="submit" name="eliminar_del_carrito" value="Eliminar" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i> <!-- Icono de la papelera de Font Awesome -->
-                                </button>
-                            </form>
-                        </td>
+                        <th class="sr-only text-center">Imagen</th>
+                        <th class="text-center align-middle">Nombre</th>
+                        <th class="text-center align-middle">Cantidad</th>
+                        <th class="text-center align-middle">Precio</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for item in carrito %}
+                        <tr>
+                            <td class="text-center align-middle"><img src="{{ item.imagen_url }}" alt="{{ item.nombre }}" style="width: 150px; height: auto;"></td>
+                            <td class="text-center align-middle">{{ item.nombre }}</td>
+                            <td class="text-center align-middle">1</td>
+                            <td class="text-center align-middle">${{ item.precio }}</td>
+                            <td class="align-middle">
+                                <form method="post" action="{% url 'vista_carrito' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
+                                    <button type="submit" name="eliminar_del_carrito" value="Eliminar" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i> <!-- Icono de la papelera de Font Awesome -->
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-grid gap-2 col-4 mx-auto mt-5">
+                <button class="btn btn-primary" type="submit">Continuar</button>
+            </div>
+        </form>
     </div>
 
-    <div class="d-grid gap-2 col-4 mx-auto mt-5">
-        <button class="btn btn-primary" type="button">Continuar</button>
-    </div>
+    
 
 
 </div>
