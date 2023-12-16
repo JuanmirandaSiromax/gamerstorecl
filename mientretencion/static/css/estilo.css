@@ -26,6 +26,14 @@ a{
   background-color: #fa8f04;
   color: #fafafa;
   }
+  .box3 {
+  border-radius: 40px 0px 0px 40px;
+  width: 100%;
+  padding: 40px;
+  border: 1px solid #D9D9D9;
+  margin: 5px;
+  background-color: #D9D9D9;
+  }
   .clearfix::after {
     content: "";
     clear: both;
