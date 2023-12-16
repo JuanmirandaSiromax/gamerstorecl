@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="color: #fff; margin-right: 60px;margin-left: 40px;">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}" style="color: #fff; margin-right: 60px;margin-left: 40px;">Inicio</a>
           </li>
 
           <!-- Categorías -->
@@ -30,14 +30,16 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff; margin-right: 60px;">
               Categorías
             </a>
+            {% if request.user.is_authenticated %}
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Acción</a></li>
-              <li><a class="dropdown-item" href="#">Aventura</a></li>
-              <li><a class="dropdown-item" href="#">Carreras</a></li>
-              <li><a class="dropdown-item" href="#">Supervivencia</a></li>
-              <li><a class="dropdown-item" href="#">Terror</a></li>
+              <li><a class="dropdown-item" href="{% url 'accion' %}">Acción</a></li>
+              <li><a class="dropdown-item" href="{% url 'aventura' %}">Aventura</a></li>
+              <li><a class="dropdown-item" href="{% url 'carreras' %}">Carreras</a></li>
+              <li><a class="dropdown-item" href="{% url 'supervivencia' %}">Supervivencia</a></li>
+              <li><a class="dropdown-item" href="{% url 'terror' %}">Terror</a></li>
             </ul>
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="#" style="color: #fff; margin-right: 60px;">Contacto</a>
           </li>
