@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block css %}   
+{% endblock %}
+{% load static %}  
+
+{% block contenido %}
+
+<div class="titulo-novedades mt-5 mb-5">Método de Pago</div>
+<div class="container">
+    <div class="row text-center mb-4">
+        <div class="col d-flex flex-column align-items-center">
+            <form method="post" action="#">
+                <div class="gray-background">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col contenedor-pago">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="payment-options">
+                                            <div class="payment-option">
+                                                <input type="radio" id="credit-card" name="payment-method" value="credit-card">
+                                                <label for="credit-card">Tarjeta de Crédito</label>
+                                            </div>
+                                    
+                                            <div class="payment-option">
+                                                <input type="radio" id="paypal" name="payment-method" value="paypal">
+                                                <label for="paypal">Débito</label>
+                                            </div>
+                                    
+                                            <div class="payment-option">
+                                                <input type="radio" id="bank-transfer" name="payment-method" value="bank-transfer">
+                                                <label for="bank-transfer">Transferencia Bancaria</label>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <div class="col-6 d-flex align-items-center">
+                                        <img src="{% static 'imagenes/web-pay-plus.png' %}" alt="webpay" class="payment-option-image" style="width: 400px; height: auto;">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="d-grid gap-2 col-4 mx-auto mt-5">
+                    <button class="btn btn-primary" type="button">Continuar</button>
+                </div>
+            </form>
+        </div>       
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+{% endblock %}

@@ -390,6 +390,13 @@ def vista_carrito(request):
     carrito = request.session.get('carrito', [])
     return render(request, 'juegos/carrito.html', {'carrito': carrito})
 
+def metodo_pago(request):
+    return render(request, 'auth/metodo_pago.html')
+
+def venta_exitosa(request):
+    return render(request, 'auth/venta_exitosa.html')
+
+
 # Vista en caso de que no encuentra una ruta válida
 def vista_error_404(request, exception):
     return render(request, '404.html', status=404)
