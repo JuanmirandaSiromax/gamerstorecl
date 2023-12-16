@@ -386,12 +386,20 @@ def vista_carrito(request):
             codigo_invent_a_eliminar = request.POST.get('codigo_invent')
             carrito = [item for item in carrito if item['codigo_invent'] != codigo_invent_a_eliminar]
             request.session['carrito'] = carrito
+            return redirect('vista_carrito')
+        if 'continuar' in request.POST:
             return redirect('metodo_pago')
-
+            
     carrito = request.session.get('carrito', [])
     return render(request, 'juegos/carrito.html', {'carrito': carrito})
 
 def metodo_pago(request):
+    if request.method == 'POST':
+        metodo_de_pago = request.POST.get('metodo_de_pago')
+
+        if not metodo_de_pago:
+            messages.error(request, 'Debe seleccionar un método de pago antes de continuar.')
+            return redirect('metodo_pago')
 
     return render(request, 'auth/metodo_pago.html')
 
