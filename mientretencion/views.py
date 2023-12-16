@@ -385,16 +385,18 @@ def vista_carrito(request):
             codigo_invent_a_eliminar = request.POST.get('codigo_invent')
             carrito = [item for item in carrito if item['codigo_invent'] != codigo_invent_a_eliminar]
             request.session['carrito'] = carrito
-            return redirect('vista_carrito')
+            return redirect('metodo_pago')
 
     carrito = request.session.get('carrito', [])
     return render(request, 'juegos/carrito.html', {'carrito': carrito})
 
 def metodo_pago(request):
+
     return render(request, 'auth/metodo_pago.html')
 
 def venta_exitosa(request):
-    return render(request, 'auth/venta_exitosa.html')
+    
+    return render(request, 'auth/venta_realizada.html')
 
 
 # Vista en caso de que no encuentra una ruta válida
