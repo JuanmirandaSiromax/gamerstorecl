@@ -74,7 +74,8 @@ def home(request):
 @login_required
 def listado_usuarios(request):
     users = User.objects.all()
-    perfil = request.session.get('perfil')
+    perfil = request.user.profile.role if hasattr(request.user, 'profile') else None
+
     context = {
         'user': users,
         'perfil': perfil,
