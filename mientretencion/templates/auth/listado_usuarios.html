@@ -6,7 +6,7 @@
 {% block contenido %}
 
 
-<div>listado de usuarios - {{ request.user.username }}</div>
+<div class="titulo-novedades"> listado de usuarios - {{ request.user.username }}</div>
 
 <div class = "container">
         {%if request.user.username == 'admin'%}
@@ -23,7 +23,7 @@
           </div>
         {% endfor %}
         {% endif %}
-        <table class="table">
+        <table class="table box3">
             <thead>
                 <tr>
                 <th scope="col">ID</th>
