@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+{% load static %}  
+
+{% block contenido %}
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mb-6 box1">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="titulo-login mb-4">Iniciar Sesion</div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="usuario" id="usuario" placeholder="Ingrese Nombre de Usuario">
+                    <label for="floatingInput">Nombre de Usuario</label>
+                  </div>
+                  <div class="form-floating">
+                    <input type="password" class="form-control" name="pass" id="pass" placeholder="Ingrese Contraseña">
+                    <label for="floatingPassword">Contraseña</label>
+                </div>
+                <small class="text-danger" id="pass-error"></small>
+
+                <a href="{% url 'recuperar_contrasenna' %}" class="btn btn-link ms-auto" style="margin-left: auto;">Recuperar contraseña</a>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-primary mt-4" type="submit">Ingresar</button>
+                </div>
+                <p class="texto-login mt-3">o</p>
+                <p class="texto-login">Ingresa con tus redes sociales: </p>
+                <!-- Logos Redes Sociales -->
+                <div class="redes-sociales">
+                    <a class="red-social" href="#">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a class="red-social" href="#">
+                        <i class="fab fa-google"></i>
+                    </a>
+                    <a class="red-social" href="#">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="col-6 mb-6 box2">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <h1>Bienvenidos a </h1>
+                <br>
+                <h1 style="font-family: 'Ink Free', sans-serif;font-weight: bold;">GamerStoreCL</h1>
+                <br>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <a href="{% url 'formulario' %}" class="btn btn-light mt-4" type="button">Registrarse</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}
+
+

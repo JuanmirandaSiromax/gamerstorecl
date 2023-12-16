@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+{% endblock %}
+
+
+{% block contenido %}
+
+  <br>
+  <br>
+  <h2>Los más Destacado</h2>
+  <br>
+  <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-6">
+        <a href="{% url 'terror' %}" class="text-no-decoracion">
+          <div class="card bg-transparent text-white">
+            <img src="{% static '/imagenes/terror1.png '%}" class="card-img-top" alt="Resident Evil"
+              class="card-img.top shadow">
+            <div class="card-body">
+              <h5 class="card-title text-center ">Resident Evil</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-6">
+        <a href="{% url 'terror' %}" class="text-no-decoracion">
+          <div class="card bg-transparent text-white">
+            <img src="{% static '/imagenes/terror2.png' %}" class="card-img-top" alt="Dead by Daylight"
+              class="card-img.top shadow">
+            <div class="card-body">
+              <h5 class="card-title text-center ">Dead by Daylight</h5>
+            </div>
+          </div>
+        </a>
+
+      </div>
+      <div class="col-12 col-sm-6 col-md-6">
+        <a href="{% url 'carreras' %}" class="text-no-decoracion">
+          <div class="card bg-transparent text-white">
+            <img src="{% static '/imagenes/carreras1.png' %}" class="card-img-top" alt="Gran Turismo 7"
+              class="card-img.top shadow">
+            <div class="card-body">
+              <h5 class="card-title text-center">Gran Turismo 7</h5>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-6">
+        <a href="{% url 'accion' %}" class="text-no-decoracion">
+          <div class="card bg-transparent text-white">
+            <img src="{% static '/imagenes/accion2.png' %}" class="card-img-top" alt="Crackdown 3"
+              class="card-img.top shadow">
+            <div class="card-body">
+              <h5 class="card-title text-center">Crackdown 3</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <h2>Nuestros Proyectos</h2>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-6">
+        <a href="{% url 'detalle_juego_api' %}" class="text-no-decoracion">
+          <div class="card bg-transparent text-white">
+          <img src="{% static '/imagenes/juegoRickymorty.png' %}" class="card-img-top" alt="RICK AND MORTY"
+          class="card-img.top shadow">
+          <div class="card-body">
+          <h5 class="card-title text-center">PERSONAJES RICK AND MORTY</h5>
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+      <div class="col-12 col-sm-6 col-md-6">
+        <a href="{% url 'personajes_juego_api' %}" class="text-no-decoracion">
+          <div class="card bg-transparent text-white">
+          <img src="{% static '/imagenes/MARVEL.PNG' %}" class="card-img-top" alt="marvel"
+          class="card-img.top shadow">
+          <div class="card-body">
+          <h5 class="card-title text-center">MARVEL AVENGER</h5>
+        </div>
+      </div>
+    </a>
+  </div>
+
+
+  <div class="clearfix"></div>
+
+
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% load static %}  
+
+{% block inicio_sesion%}
+<br>
+{%if perfil == 'admin' or perfil == 'cliente'%}
+    {{ usuario.username }}
+{% endif %}
+{% endblock %}
+
+
+{% block contenido %}
+
+<br>
+    <center>
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}} alert-dismissible fade show" role='alert'>
+            {{ message }}
+            <button type= "button" class="btn-close" data-bs-dissmiss="alert" aria-label="close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}
+    </center>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6 mb-6 box1">
+                    <form id="formulario_registro" action=""  method="post">
+                        {% csrf_token %}
+                        <div class="titulo-reg mb-4">Registro</div>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="first_name" id="first_name"
+                                placeholder="Ingrese Nombre Completo" required>
+                            <label for="">Nombre Completo</label>
+                            <small class="text-danger" id="nombre-error"> </small>
+                          <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" name="username" id="username"
+                            placeholder="Ingrese Nombre de Usuario" required>
+                            <label for="">Nombre de Usuario</label>
+                            <small class="text-danger" id="NombreUsuario-error"> </small>
+                          </div>
+                          {% if password.value == password2.value%}
+                          <div class="form-floating mb-3">
+                            <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                            <label for="">Correo Electrónico</label>
+                            <small class="text-danger" id="Correo-error"> </small>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password" id="password"
+                            placeholder="longitud entre 6 y 18 caracteres" required>
+                            <label for="">Contraseña</label>
+                          </div>
+                          <div class="form-floating mb-3">
+                            <input type="password" class="form-control" name="password2" id="password2"
+                            placeholder="Debe Ser igual A Contraseña" required>
+                            <label for="">Confirmar Contraseña</label>
+                          </div>
+                          {% endif %} 
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button class="btn btn-light mt-4" type="submit">Registrarse</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-6 mb-6 box2">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <h1>Bienvenidos a </h1>
+                        <br>
+                        <h1 style="font-family: 'Ink Free', sans-serif;font-weight: bold;">GamerStoreCL</h1>
+                        <br>
+                        <div class="second-option-title mt-4">Iniciar Sesión con:</div>
+                        <div class="redes-sociales">
+                            <a class="red-social" href="#">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a class="red-social" href="#">
+                                <i class="fab fa-google"></i>
+                            </a>
+                            <a class="red-social" href="#">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="container">
+            <div class="row justify-content-center">
+                {% if password.value == password2.value%}
+                    <div class="col-6 mb-3">
+                        <label for="" class="form-label"> Ingrese Correo Electronico </label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                        <small class="text-danger" id="Correo-error"> </small>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <label for="" class="form-label">Rol</label>
+                        <select class="form-select" aria-label="Default select example" id="roles" onchange="cambiarRoles()" required>
+                            <option selected>Seleccione un rol</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Cliente</option>
+                        </select>
+                    </div>
+                    <center>
+                        <div class="d-grid" class="mb-3">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                <br>
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                    <button class="btn btn-primary mt-4" type="submit">Registrarse</button>
+                                    </div>
+                                <br>
+                {% endif %}  
+                            </div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div> -->
+
+        
+{% endblock %}

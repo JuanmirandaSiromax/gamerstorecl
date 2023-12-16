@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    
+{% endblock %}
+
+
+{% block contenido %}
+
+<h1>Juegos SAGA</h1>
+
+
+  <div class="container">
+      <div class='row' id="personajes">
+        
+      </div>
+  </div>
+  <footer>
+
+    <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
+  
+  </footer>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $(document).ready(function(){
+    const URL = "https://rickandmortyapi.com/api/character";
+    var id_personajes = $("#personajes");
+
+    function addPersonajes(personaje){
+      id_personajes.append(`
+
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+              <div class='card'>
+                <div class="card-header">
+                  <img src="${personaje.image}" class="card-img-top" alt="" class="...">
+                  <div class="card-body">
+                  <br>
+                  <h2 class="card-title">${personaje.name}</h2>
+                  <br>
+                  <p class="card-text">${ personaje.species }</p>
+                  <br>
+                </div>
+              </div>
+            </div>
+          `)
+
+    }
+    function obtenerPersonajes(){
+        $.ajax({
+            url : URL,
+            method : "GET",
+            success : function(data){
+              console.log(data.results);
+              var personajes= data.results;
+              personajes.forEach(addPersonajes);
+        }
+      })
+    }
+    obtenerPersonajes();
+  });
+</script>
+{% endblock %}

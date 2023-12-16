@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block css %}   
+{% endblock %}
+
+{% load static %}  
+
+{% block contenido %}
+
+
+<h1>listado de Juegos - {{ perfil }}</h1>
+
+<div class = "container">
+        {%if perfil == 'admin'%}
+            <a href="{% url 'crear_juego' %}" class="btn btn-primary">Crear Nuevo Juego</a>
+            
+        {% endif %}
+        
+    <div class= "row">
+        {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}} alert-dismissible fade show" role='alert'>
+            {{ message }}
+            <button type= "button" class="btn-close" data-bs-dissmiss="alert" aria-label="close"></button>
+          </div>
+        {% endfor %}
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">IMAGEN</th>
+                <th scope="col">CATEGORIA</th>
+                <th scope="col">INFORMACION</th>
+                {% if perfil == 'admin' %}
+                <th scope="col"></th>
+                <th scope="col"></th>
+                {% endif %}
+                </tr>
+            </thead>
+        <tbody>
+            {% for juego in juegos %}
+            <tr>
+                <th scope="row">{{juego.id}}</th>
+                <td>
+                    <a href= "{% url 'juegos_show' id=juego.id %}"> {{juego.nombre}} </a>
+                    </td>
+                <td>
+                    {% if juego.imagen %}
+                    <img src="{{ juego.imagen.url }}" alt="{{ juego.nombre }}" width='100px'>
+                    {% else %}
+                    <p>-</p>
+                    {% endif %}
+
+                </td>
+                <td>{{juego.categoria.nombre}}</td>
+                <td>{{juego.get_code_name}}</td>
+                {%if perfil == 'admin'%}
+                <td><a href= "{% url 'juegos_editar' id=juego.id %}">Editar</a></td>
+                <td><a href= "{% url 'eliminar_juego' id=juego.id %}">Eliminar</a></td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+    <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
+{% endblock footer %}

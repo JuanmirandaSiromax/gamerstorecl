@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+
+{% block contenido %}
+<h1>Juegos CARRERAS</h1>
+<div class="container">
+  <div class="row">
+    
+      {% for juego in juegos_carreras %}
+ 
+    
+      <div class="col-12 col-sm-6 col-md-4 mb-4">
+        <div class="card">
+          <a href= "{% url 'juegos_show' id=juego.id %}">
+          <img src="{{ juego.imagen.url }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h2 class="card-title"> {{juego.nombre}} </h2>
+            </a>
+            <p class="card-text">{{ juego.descripcion }}</p>
+          </div>
+        </div>
+      </div>
+    
+  
+      {% endfor %}
+    
+  </div>
+</div>
+<footer>
+  <div class="column4">
+      <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
+  </div>
+
+</footer>
+{% endblock %}

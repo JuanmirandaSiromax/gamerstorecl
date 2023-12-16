@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+{% endblock %}
+
+{% block contenido %}
+
+<!-- carrito.html -->
+<div class="container">
+    <div>
+        <h2 class="text-center">Carrito</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="sr-only text-center">Imagen</th>
+                    <th class="text-center align-middle">Nombre</th>
+                    <th class="text-center align-middle">Cantidad</th>
+                    <th class="text-center align-middle">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in carrito %}
+                    <tr>
+                        <td class="text-center align-middle"><img src="{{ item.imagen_url }}" alt="{{ item.nombre }}" style="width: 150px; height: auto;"></td>
+                        <td class="text-center align-middle">{{ item.nombre }}</td>
+                        <td class="text-center align-middle">1</td> <!-- Cantidad fija en 1 -->
+                        <td class="text-center align-middle">${{ item.precio }}</td>
+                        <td class="align-middle">
+                            <form method="post" action="{% url 'vista_carrito' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
+                                <button type="submit" name="eliminar_del_carrito" value="Eliminar" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> <!-- Icono de la papelera de Font Awesome -->
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <!-- ... otros campos que desees mostrar -->
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <!-- <div class="col-12">
+        <img src="{% static 'imagenes/graciasCompra.png' %}" alt="Gracias por comprar"></a>
+    </div> -->
+
+  {% endblock %}
