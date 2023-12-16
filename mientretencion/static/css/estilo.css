@@ -218,11 +218,14 @@ a{
       color: black;
   }
 
-  .card-img-top {
-    height: 400px;
-    width: auto;
-    object-fit:cover;
-  }
+.card-img-top {
+  height: 400px;
+  width: auto;
+  object-fit:cover;
+  margin: 0 auto;
+  display: block;
+}
+
 
   .offcanvas-start {
     background-color: #14002b;
