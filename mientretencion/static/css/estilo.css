@@ -26,6 +26,17 @@ a{
   background-color: #fa8f04;
   color: #fafafa;
   }
+
+  .boxContacto {
+    border-radius: 0px 40px 40px 0px;
+    padding: 40px;
+    border: 1px solid #f1841d;
+    margin: 5px;
+    background-color: #fa8f04;
+    color: #fafafa;
+  }
+
+
   .box3 {
   border-radius: 40px 0px 0px 40px;
   width: 100%;
@@ -128,7 +139,7 @@ a{
   
   .estilo-footer {
     border-radius: 10px;
-    background-color: orange;
+    background-color: #e9862c;
     color: white;
     width: 100%;
     text-align: right;
@@ -312,6 +323,10 @@ a{
   transition: background-color 0.3s ease;
 }
 
+.navbar{
+  background-color: #e9862c !important;
+}
+
 
 .user-icon {
   margin-right: 10px;
@@ -398,6 +413,7 @@ a{
 .payment-option label {
   text-align: justify;
 }
+
 
 
 

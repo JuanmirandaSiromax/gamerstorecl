@@ -8,10 +8,9 @@
 
 <div class="container">
     <div>
-        
         <h2 class="text-center titulo-novedades pt-5 mb-4">Carrito</h2>
         {% if carrito %}
-        <form method="post" action="{% url 'vista_carrito' %}">
+        <form method="post" action="{% url 'vista_carrito' %}" class="cart-form">
             {% csrf_token %}
             <table class="table">
                 <thead>
@@ -28,14 +27,13 @@
                             <td class="text-center align-middle"><img src="{{ item.imagen_url }}" alt="{{ item.nombre }}" style="width: 150px; height: auto;"></td>
                             <td class="text-center align-middle">{{ item.nombre }}</td>
                             <td class="text-center align-middle">
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="updateCantidad('{{ item.codigo_invent }}', -1)">-</button>
-                                <span id="cantidad-{{ item.codigo_invent }}" name="cantidad">1</span>
-                                <button type="button" class="btn btn-sm btn-secondary" onclick="updateCantidad('{{ item.codigo_invent }}', 1)">+</button>
-                                <input type="hidden" id="input-cantidad-{{ item.codigo_invent }}" name="cantidad" value="{{ item.cantidad }}">
+                                
+                                <span class="quantity" data-product-code="{{ item.codigo_invent }}">{{ item.cantidad }}</span>
+                                
+                                <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
                             </td>
                             <td class="text-center align-middle">${{ item.precio }}</td>
                             <td class="align-middle">
-                                <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
                                 <button type="submit" name="eliminar_del_carrito" value="Eliminar" class="btn btn-danger">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -47,9 +45,10 @@
             <div class="row">
                 <div class="col-9"></div>
                 <div class="col" style="font-size: 20px;">
-                    Subtotal: $ {{ request.session.subtotal }}
+                    Subtotal: $ <span id="subtotal">{{ request.session.subtotal }}</span>
                 </div>
             </div>
+            <br>
             <div class="row">
                 <div class="col-6">
                     <div class="d-grid gap-2 col-4 mx-auto mt-5">
@@ -68,21 +67,45 @@
         {% endif %}
     </div>
 </div>
+<br>
+<br>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function updateCantidad(codigo_invent, cambio) {
-        // Obtener el elemento span que muestra la cantidad
-        var cantidadSpan = document.getElementById('cantidad-' + codigo_invent);
-        // Obtener el valor actual de la cantidad
-        var cantidadActual = parseInt(cantidadSpan.innerText);
-        // Asegurarse de que la cantidad no sea menor que 1
-        cantidadActual = Math.max(1, cantidadActual + cambio);
-        // Actualizar la cantidad en el elemento span
-        cantidadSpan.innerText = cantidadActual;
-        // Actualizar el valor del campo oculto
-        document.getElementById('input-cantidad-' + codigo_invent).value = cantidadActual;
-    }
-</script>
+    $(document).ready(function () {
+        // Manejo de la cantidad de productos en el carrito
+        $(".cart-form").on("click", ".add-quantity, .subtract-quantity", function () {
+            var row = $(this).closest("tr");
+            var quantitySpan = row.find(".quantity");
+            var productCode = quantitySpan.data("product-code");
+            var quantity = parseInt(quantitySpan.text());
 
+            if ($(this).hasClass("add-quantity")) {
+                quantity++;
+            } else if ($(this).hasClass("subtract-quantity") && quantity > 1) {
+                quantity--;
+            }
+
+            quantitySpan.text(quantity);
+
+            // Actualizar el valor del campo oculto
+            row.find('input[name="cantidad"]').val(quantity);
+            
+            // Actualizar el subtotal
+            updateSubtotal();
+        });
+
+        function updateSubtotal() {
+            var subtotal = 0;
+            $(".cart-form tbody tr").each(function () {
+                var quantity = parseInt($(this).find(".quantity").text());
+                var price = parseFloat($(this).find(".text-center.align-middle:last").text().replace("$", ""));
+                subtotal += quantity * price;
+            });
+
+            $("#subtotal").text(subtotal.toFixed(0));
+        }
+    });
+</script>
 
 {% endblock %}

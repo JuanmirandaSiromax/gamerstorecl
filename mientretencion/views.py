@@ -1,12 +1,14 @@
+from decimal import Decimal, DecimalException
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Juego, Categoria , UserProfile
+from .models import Juego, Categoria, Pedidos , UserProfile
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import role_requiered
 from django.contrib.auth.models import User
 from django.conf.urls import handler404
+from .models import MensajeContacto
 
 # Create your views here.
 
@@ -44,7 +46,7 @@ def home(request):
         # Obtener el perfil del usuario
         perfil = request.user.username
         juegos = Juego.objects.all()
-
+        print(juegos)
         codigo_invent = request.POST.get('codigo_invent')
         juego_nombre = request.POST.get('juego_nombre')
         juego_precio = request.POST.get('juego_precio')
@@ -254,12 +256,41 @@ def compra(request):
     
 @login_required
 def juegos_show(request, id):
-    juego = get_object_or_404(Juego, id=id)
-    context = {
-        'juego' : juego
-         }
+    if request.user.is_authenticated:
+        perfil = request.user.username
+        juego = get_object_or_404(Juego, id=id)
 
-    return render(request, 'juegos/juegos_show.html',context)
+        if request.method == 'POST':
+            # Validar el formulario (puedes agregar más validaciones según sea necesario)
+            if 'cantidad' in request.POST:
+                cantidad = int(request.POST['cantidad'])
+            else:
+                cantidad = 1
+
+            # Agregar el juego al carrito
+            carrito = request.session.get('carrito', [])
+            carrito.append({
+                'codigo_invent': juego.codigo_invent,
+                'nombre': juego.nombre,
+                'precio': juego.precio,
+                'imagen_url': juego.imagen.url,
+                'cantidad': cantidad,
+            })
+            request.session['carrito'] = carrito
+
+            # Mensaje de éxito
+            messages.success(request, f'Se agregaron {cantidad} {juego.nombre} al carrito.')
+
+        carrito = request.session.get('carrito', [])
+        context = {
+            'juego': juego,
+            'perfil': perfil,
+            'carrito': carrito,
+        }
+
+        return render(request, 'juegos/juegos_show.html', context)
+
+
 @login_required
 def listado_juegos(request):
     # Verificar si el usuario está autenticado
@@ -278,65 +309,80 @@ def listado_juegos(request):
         return HttpResponse("Usuario no autenticado")
     
 @login_required
-def juegos_editar(request,id):
+def juegos_editar(request, id):
     juego = get_object_or_404(Juego, id=id)
-    
-    if request.method =='POST':
-        categoria_id = request.POST.get ('categoria')
-        categoria = get_object_or_404(Categoria, id=categoria_id)    
 
-        juego.nombre = request.POST['nombre']
-        juego.codigo= request.POST['codigo_invent']
-        juego.descripcion = request.POST['descripcion']
+    if request.method == 'POST':
+        categoria_id = request.POST.get('categoria')
+        categoria = get_object_or_404(Categoria, id=categoria_id)
+
+        # Asegúrate de utilizar get() para acceder a los valores del formulario
+        juego.nombre = request.POST.get('nombre', '')
+        juego.codigo = request.POST.get('codigo_invent', '')
+        juego.descripcion = request.POST.get('descripcion', '')
+
+        # Asegúrate de manejar adecuadamente la entrada del usuario, como convertir a decimal si es necesario
+        precio = request.POST.get('precio', '')
+        try:
+            juego.precio = Decimal(precio)
+        except DecimalException:
+            # Maneja el caso en que el valor no sea un decimal válido
+            pass
+
         juego.categoria = categoria
 
         if 'imagen' in request.FILES:
             juego.imagen = request.FILES['imagen']
-        
-        juego.save()
-        messages.success(request, 'Se ha Actualizado Correctamente')
 
-    
-    categorias =Categoria.objects.all()
-    context ={
-        'juego' : juego,
-        'categorias' : categorias
+        juego.save()
+        messages.success(request, 'Se ha actualizado correctamente')
+
+    categorias = Categoria.objects.all()
+    context = {
+        'juego': juego,
+        'categorias': categorias,
     }
     return render(request, 'juegos/juegos_editar.html', context)
 
 
    
 @login_required
-def crear_juego(request): 
-
-    if request.method =='POST':
-        categoria_id = request.POST.get('categoria')
-        categoria = get_object_or_404(Categoria, id=categoria_id)
-
-        codigo_invent = request.POST.get('codigo_invent')
-        nombre = request.POST.get('nombre')
-        descripcion = request.POST.get('descripcion')
-        precio = request.POST.get('precio')
+def crear_juego(request):
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        codigo_invent = request.POST['codigo_invent']
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        precio = request.POST['precio']
+        categoria_id = request.POST['categoria']
         imagen = request.FILES.get('imagen')
 
-        Juego.objects.create(
+        # Verificar si ya existe un juego con el mismo código de inventario
+        if Juego.objects.filter(codigo_invent=codigo_invent).exists():
+            messages.error(request, 'Ya existe un juego con ese código de inventario.')
+            return redirect('crear_juego')  # Redirigir a la página de creación de juego
+
+        # Si no existe, crear el nuevo juego
+        juego = Juego(
             codigo_invent=codigo_invent,
             nombre=nombre,
             descripcion=descripcion,
             precio=precio,
-            imagen=imagen,
-            categoria=categoria
-            )
-        messages.success(request, 'Se ha creado Correctamente')
-        return redirect('listado_juegos')
+            categoria_id=categoria_id,
+            imagen=imagen
+        )
+        juego.save()
+
+        messages.success(request, 'El juego se ha creado correctamente.')
+        return redirect('vista_juegos')  # Redirigir a la página de visualización de juegos
 
     categorias = Categoria.objects.all()
     
-    contexto = {
+    context = {
         'categorias': categorias
     }
     
-    return render (request, 'juegos/crearjuego.html',contexto)
+    return render(request, 'juegos/crearjuego.html', context)
 @login_required
 def eliminar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
@@ -397,10 +443,68 @@ def metodo_pago(request):
     return render(request, 'auth/metodo_pago.html')
 
 def venta_exitosa(request):
+    # Obtener la información del carrito actual de la sesión
     carrito = request.session.get('carrito', [])
-    return render(request, 'auth/venta_realizada.html', {'carrito': carrito})
+
+    # Calcular el subtotal
+    subtotal_total = sum(item['cantidad'] * item['precio'] for item in request.session.get('carrito', []))
+
+    # Pasar la información al contexto
+    context = {
+        'carrito': request.session.get('carrito', []),
+        'subtotal_total': subtotal_total,
+    }
+
+    return render(request, 'auth/venta_realizada.html', context)
 
 
 # Vista en caso de que no encuentra una ruta válida
 def vista_error_404(request, exception):
     return render(request, '404.html', status=404)
+
+@login_required
+def contacto(request):
+    mensaje_exito = None
+
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre', '')
+        correo = request.POST.get('correo', '')
+        mensaje_texto = request.POST.get('mensaje', '')
+
+        # Crea un objeto MensajeContacto y guárdalo en la base de datos
+        mensaje_contacto = MensajeContacto(nombre=nombre, correo=correo, mensaje=mensaje_texto)
+        mensaje_contacto.save()
+
+        mensaje_exito = f'Gracias por contactarte con nosotros, {nombre}. Te contactaremos a la brevedad.'
+
+        # Redirige a la misma página con el mensaje de éxito
+        return render(request, 'auth/contacto.html', {'mensaje_exito': mensaje_exito})
+
+    return render(request, 'auth/contacto.html', {'mensaje_exito': mensaje_exito})
+
+def procesar_pedido(request):
+    if request.method == 'POST':
+        # Obtener datos del carrito desde la sesión
+        carrito = request.session.get('carrito', [])
+
+        # Obtener el usuario actual
+        usuario_actual = request.user
+
+        # Procesar cada elemento del carrito
+        for item in carrito:
+            nombre = item['nombre']
+            cantidad = item['cantidad']
+            precio_unitario = item['precio']
+            total = cantidad * precio_unitario
+
+            # Crear instancia de Pedido y guardar en la base de datos
+            pedido = Pedidos(nombre=nombre, cantidad=cantidad, total=total, usuario=usuario_actual)
+            pedido.save()
+
+        # Limpiar el carrito después de procesar el pedido
+        del request.session['carrito']
+        messages.success(request, 'Pedido procesado exitosamente.')
+        return redirect('pagina_de_confirmacion')  # Redirigir a la página de confirmación
+
+    else:
+        return render(request, 'error.html') 

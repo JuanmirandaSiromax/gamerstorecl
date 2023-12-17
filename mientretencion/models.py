@@ -27,14 +27,23 @@ class UserProfile(models.Model):
     role = models.CharField(max_length=20, choices=settings.ROLES)
 
     def __str__(self):
-        return self.user.username + ' - ' + self.role
+        return f"{self.user.username} - {self.role}"
 
 class Pedidos(models.Model):
     nro_pedido = models.IntegerField(default = 1)
     nombre = models.CharField(max_length=100)
     cantidad = models.IntegerField()
     total = models.IntegerField()
-
+    usuario = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     def __str__(self):
         return self.nombre
+    
+class MensajeContacto(models.Model):
+    nombre = models.CharField(max_length=255)
+    correo = models.EmailField()
+    mensaje = models.TextField()
+
+    def __str__(self):
+        return f'{self.nombre} - {self.correo}'
+
     
