@@ -28,4 +28,13 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username + ' - ' + self.role
+
+class Pedidos(models.Model):
+    nro_pedido = models.IntegerField(default = 1)
+    nombre = models.CharField(max_length=100)
+    cantidad = models.IntegerField()
+    total = models.IntegerField()
+
+    def __str__(self):
+        return self.nombre
     

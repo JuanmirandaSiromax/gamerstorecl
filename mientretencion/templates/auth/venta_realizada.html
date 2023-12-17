@@ -2,44 +2,49 @@
 
 {% block css %}   
 {% endblock %}
+
 {% load static %}  
 
 {% block contenido %}
 
-<!-- <div class="titulo-novedades mt-5">Venta Realizada</div>
+<div class="titulo-novedades mt-5">Venta Realizada</div>
 <div class="container">
-    <div>
-        <h2 class="text-center">Carrito</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="sr-only text-center">N° Pedido</th>
-                    <th class="text-center align-middle">Nombre</th>
-                    <th class="text-center align-middle">Cantidad</th>
-                    <th class="text-center align-middle">Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in carrito %}
-                    <tr>
-                        <td class="text-center align-middle">{{ item.codigo_invent }}</td>
-                        <td class="text-center align-middle">{{ item.nombre }}</td>
-                        <td class="text-center align-middle">1</td>
-                        <td class="text-center align-middle">${{ item.precio }}</td>
-                        <td class="align-middle">
-                            <form method="post" action="{% url 'venta_exitosa' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
-                                <button type="submit" name="eliminar_del_carrito" value="Eliminar" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i> <!-- Icono de la papelera de Font Awesome -->
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-</div> -->
+        <div class="gray-background">
+            <div class="container">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col-8 contenedor-pago">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col-10">
+                                <table class="table mt-4" style="background-color: transparent;">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center align-middle">Código</th>
+                                            <th class="text-center align-middle">Nombre</th>
+                                            <th class="text-center align-middle">Cantidad</th>
+                                            <th class="text-center align-middle">Precio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in carrito %}
+                                            <tr>
+                                                <td class="text-center align-middle">{{ item.codigo_invent }}</td>
+                                                <td class="text-center align-middle">{{ item.nombre }}</td>
+                                                <td class="text-center align-middle">1</td>
+                                                <td class="text-center align-middle">${{ item.precio }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
+                </div>
+            </div>
+        </div>
+</div>
 
 {% endblock %}
