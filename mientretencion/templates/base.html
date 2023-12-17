@@ -41,11 +41,11 @@
           </li>
           {% endif %}
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'contacto' %}" style="color: #fff; margin-right: 60px;margin-left: 40px;">Contacto</a>
+            <a class="nav-link active" aria-current="page" style="color: #fff; margin-right: 60px;margin-left: 40px;">Contacto</a>
           </li>
                   <!-- Categorías -->
           <li class="nav-item">
-               <a class="nav-link" href="{% url 'contacto' %}" style="color: #fff; margin-right: 60px;"></a>
+               <a class="nav-link" style="color: #fff; margin-right: 60px;"></a>
           </li>
           {% if request.user.is_authenticated and request.user.is_superuser %}
           <li class="nav-item dropdown">
