@@ -22,7 +22,7 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="color: #fff; margin-right: 60px;margin-left: 40px;">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}" style="color: #fff; margin-right: 60px;margin-left: 40px;">Inicio</a>
           </li>
 
           <!-- Categorías -->
@@ -43,6 +43,23 @@
           <li class="nav-item">
             <a class="nav-link" href="#" style="color: #fff; margin-right: 60px;">Contacto</a>
           </li>
+                  <!-- Categorías -->
+          <li class="nav-item">
+               <a class="nav-link" href="#" style="color: #fff; margin-right: 60px;"></a>
+          </li>
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff; margin-right: 60px;">
+              Administración
+            </a>
+          
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'listado_juegos' %}">Listado Juegos</a></li>
+              <li><a class="dropdown-item" href="{% url 'listado_usuarios' %}">Listado usuarios</a></li>
+            </ul>
+          </li>
+          {% endif %}
+        
         </ul>
         <!-- Icono Carrito de Compras -->
         <a class="carrito-btn" href="{% url 'vista_carrito' %}" style="color: #fff;">
@@ -50,7 +67,7 @@
           <span id="cantidad-pedido">0</span>
         </a>
         <!-- Botón desplegable usuario logeado -->
-        <div class="login-button" ">
+        <div class="login-button" >
           {% block inicio_sesion %}
           {% endblock %}
           {% if request.user.is_authenticated %}
