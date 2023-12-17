@@ -64,8 +64,8 @@
         <!-- Icono Carrito de Compras -->
         <a class="carrito-btn" href="{% url 'vista_carrito' %}" style="color: #fff;">
           <img class="carrito-icon" src="{% static 'imagenes/compras.png' %}" alt="Carrito de compras" style="width: 30px; height: 30px;">
-          <span id="cantidad-pedido" name="total">$ {{ request.session.subtotal }}</span>
-        </a>
+          <span id="cantidad-pedido" name="total">{{ request.session.carrito|length }}</span>
+      </a>
         <!-- Botón desplegable usuario logeado -->
         <div class="login-button" >
           {% block inicio_sesion %}
@@ -102,13 +102,54 @@
 <!-- Bootstrap JS y Popper.js (opcional, si los necesitas) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/tTllBomNQIcUov3RvF5tbaWlYUopFvE5L+OGg=" crossorigin="anonymous"></script>
   {% block js %}
+
   {% endblock %}
+
+  <footer class="navbar navbar-expand-lg bg-orange text-white">
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <div class="redes-sociales mb-3">
+            <a class="red-social" href="#">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="red-social" href="#">
+                <i class="fab fa-google"></i>
+            </a>
+            <a class="red-social" href="#">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+        <!-- Contenido del footer -->
+        <div class="navbar-text text-center">
+            <p class="mb-1">Somos tu tienda favorita de videojuegos</p>
+            <p class="mb-0">Hacemos envíos a todo Chile</p>
+        </div>
+    </div>
+</footer>
 
   <footer class="text-center py-5">
     <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
   </footer>
 
+  <script>
+    // Esperar a que el documento esté listo
+    $(document).ready(function() {
+      // Seleccionar todos los elementos con la clase alert y que no tengan la clase alert-dismissible
+      var alertMessages = $('.alert:not(.alert-dismissible)');
+  
+      // Iterar sobre los mensajes y ocultarlos después de 2 segundos
+      alertMessages.each(function() {
+        var currentAlert = $(this);
+  
+        setTimeout(function() {
+          currentAlert.fadeOut('slow', function() {
+            $(this).addClass('d-none');  // Agregar la clase d-none después de desvanecerse
+          });
+        }, 2000);  // Esperar 2000 milisegundos (2 segundos)
+      });
+    });
+  </script>
 
 </body>
 

@@ -5,9 +5,9 @@
 
 {% block contenido %}
 
-
+<br>
 <div class="titulo-novedades"> listado de usuarios - {{ request.user.username }}</div>
-
+<br>
 <div class = "container">
         {%if request.user.username == 'admin'%}
             <a href="{% url 'formulario' %}" class="btn btn-primary">Crear Nuevo Ususario</a>
@@ -23,6 +23,7 @@
           </div>
         {% endfor %}
         {% endif %}
+        <br>
         <table class="table box3">
             <thead>
                 <tr>
@@ -58,6 +59,24 @@
         </table>
     </div>
 </div>
+<br>
+<br>
+<br>
+<script>
+    $(document).ready(function () {
+        // Cierra automáticamente las alertas después de 5 segundos
+        $(".alert").delay(5000).slideUp(300, function () {
+            $(this).alert('close');
+        });
 
+        // Cierra manualmente las alertas cuando se hace clic en el botón de cierre
+        $(".alert .btn-close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".alert").slideUp(300, function () {
+                $(this).alert('close');
+            });
+        });
+    });
+</script>
 {% endblock %}
 

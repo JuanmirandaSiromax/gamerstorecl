@@ -26,16 +26,26 @@
                                             <th class="text-center align-middle">Precio</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {% for item in carrito %}
-                                            <tr>
-                                                <td class="text-center align-middle">{{ item.codigo_invent }}</td>
-                                                <td class="text-center align-middle">{{ item.nombre }}</td>
-                                                <td class="text-center align-middle">1</td>
-                                                <td class="text-center align-middle">${{ item.precio }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
+                                    
+                                        <tbody>
+                                            {% for item in carrito %}
+                                                <tr>
+                                                    <td class="text-center align-middle">{{ item.codigo_invent }}</td>
+                                                    <td class="text-center align-middle">{{ item.nombre }}</td>
+                                                    <td class="text-center align-middle">{{ item.cantidad }}</td>
+                                                    <td class="text-center align-middle">${{ item.precio }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                {% comment %} Calcular y mostrar el subtotal de cada artículo {% endcomment %}
+                                                <tr>
+                                                    <td colspan="3"></td>
+                                                    <td class="text-center align-middle">
+                                                        Subtotal Total: ${{ subtotal_total|floatformat:0 }}
+                                                    </td>
+                                                </tr>
+                                            
+                                        </tbody>
+                                    
                                 </table>
                             </div>
                             <div class="col"></div>

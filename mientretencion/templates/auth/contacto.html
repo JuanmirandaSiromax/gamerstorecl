@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block css %}
+{% endblock %}
+
+{% block contenido %}
+<br>
+<center>
+<div class="box2">
+    <br>
+    <h1>Contacto</h1>
+    <br>
+
+    {% if mensaje_exito %}
+        <div class="alert alert-success " role="alert">
+            {{ mensaje_exito }}
+        </div>
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div>
+        <!-- Campo del nombre -->
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <!-- Campo del correo electrónico -->
+        <label for="correo">Correo electrónico:</label>
+        <input type="email" id="correo" name="correo" required>
+        </div>
+        <br>
+        <br>
+
+        <div class="form-group">
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="3" style="width: 95%;" required></textarea>
+
+        <!-- Botón de envío -->
+        <button type="submit" class="boton">Enviar</button>
+        </div>
+    </form>
+
+</div>
+</center>
+    <!-- Agrega aquí tu pie de página o enlaces a scripts si es necesario -->
+{% endblock %}
