@@ -7,7 +7,7 @@
 
 {% block contenido %}
 
-<div class="titulo-novedades mt-5">Venta Realizada</div>
+<div class="titulo-novedades mt-5 mb-5">Venta Realizada</div>
 <div class="container">
         <div class="gray-background">
             <div class="container">
@@ -45,6 +45,20 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div class="d-grid gap-2 col-4 mx-auto mt-5">
+                    <a class="btn btn-warning" href="{% url 'home' %}" type="button">Volver al Inicio</a>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+</div>
+
+<div class="col-12 text-center mt-3">
+    <img src="{% static 'imagenes/graciasCompra.png' %}" alt="Gracias por comprar"></a>
 </div>
 
 {% endblock %}

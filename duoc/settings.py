@@ -54,6 +54,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CSRF_TRUSTED_ORIGINS=['https://7381-190-114-32-117.ngrok-free.app']
+
 ROOT_URLCONF = 'duoc.urls'
 
 TEMPLATES = [
