@@ -8,7 +8,9 @@
 
 <div class="container">
     <div>
-        <h2 class="text-center titulo-novedades pt-5">Carrito</h2>
+        
+        <h2 class="text-center titulo-novedades pt-5 mb-4">Carrito</h2>
+        {% if carrito %}
         <form method="post" action="{% url 'vista_carrito' %}">
             {% csrf_token %}
             <table class="table">
@@ -25,7 +27,12 @@
                         <tr>
                             <td class="text-center align-middle"><img src="{{ item.imagen_url }}" alt="{{ item.nombre }}" style="width: 150px; height: auto;"></td>
                             <td class="text-center align-middle">{{ item.nombre }}</td>
-                            <td class="text-center align-middle">1</td>
+                            <td class="text-center align-middle">
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="updateCantidad('{{ item.codigo_invent }}', -1)">-</button>
+                                <span id="cantidad-{{ item.codigo_invent }}" name="cantidad">1</span>
+                                <button type="button" class="btn btn-sm btn-secondary" onclick="updateCantidad('{{ item.codigo_invent }}', 1)">+</button>
+                                <input type="hidden" id="input-cantidad-{{ item.codigo_invent }}" name="cantidad" value="{{ item.cantidad }}">
+                            </td>
                             <td class="text-center align-middle">${{ item.precio }}</td>
                             <td class="align-middle">
                                 <input type="hidden" name="codigo_invent" value="{{ item.codigo_invent }}">
@@ -37,17 +44,45 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="d-grid gap-2 col-4 mx-auto mt-5">
-                <button class="btn btn-primary" name="continuar" type="submit">Continuar</button>
+            <div class="row">
+                <div class="col-9"></div>
+                <div class="col" style="font-size: 20px;">
+                    Subtotal: $ {{ request.session.subtotal }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="d-grid gap-2 col-4 mx-auto mt-5">
+                        <a class="btn btn-warning" href="{% url 'home' %}" type="button">Seguir comprando</a>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="d-grid gap-2 col-4 mx-auto mt-5">
+                        <button class="btn btn-primary" name="continuar" type="submit">Continuar</button>
+                    </div>
+                </div>
             </div>
         </form>
+        {% else %}
+            <p style="color: black; font-size: 20px;" class="text-center mt-5">No hay productos en el carrito.</p>
+        {% endif %}
     </div>
 </div>
 
+<script>
+    function updateCantidad(codigo_invent, cambio) {
+        // Obtener el elemento span que muestra la cantidad
+        var cantidadSpan = document.getElementById('cantidad-' + codigo_invent);
+        // Obtener el valor actual de la cantidad
+        var cantidadActual = parseInt(cantidadSpan.innerText);
+        // Asegurarse de que la cantidad no sea menor que 1
+        cantidadActual = Math.max(1, cantidadActual + cambio);
+        // Actualizar la cantidad en el elemento span
+        cantidadSpan.innerText = cantidadActual;
+        // Actualizar el valor del campo oculto
+        document.getElementById('input-cantidad-' + codigo_invent).value = cantidadActual;
+    }
+</script>
 
 
-    <!-- <div class="col-12">
-        <img src="{% static 'imagenes/graciasCompra.png' %}" alt="Gracias por comprar"></a>
-    </div> -->
-
-  {% endblock %}
+{% endblock %}

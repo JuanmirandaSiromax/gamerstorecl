@@ -10,8 +10,6 @@ from django.conf.urls import handler404
 
 # Create your views here.
 
-
-
 # definicion sesion de usuarios y perfil
 def index(request):
     if request.method == 'POST':
@@ -346,24 +344,6 @@ def eliminar_juego(request, id):
     messages.success(request, 'Se ha Eliminado Correctamente')
     return redirect('listado_juegos')
 
-# @login_required
-# def añadir_carrito(request, codigo_invent):
-#     if request.method == 'POST':
-#         juego_nombre = request.POST.get('juego_nombre')
-#         juego_precio = request.POST.get('juego_precio')
-#         juego_imagen_url = request.POST.get('juego_imagen_url')
-
-#         juego_data = {
-#             'codigo_invent': codigo_invent,
-#             'nombre': juego_nombre,
-#             'precio': juego_precio,
-#             'imagen_url': juego_imagen_url,
-#         }
-#         request.session['juego'] = juego_data
-        
-#         return redirect('vista_carrito')
-#     return render(request, 'juegos/carrito.html')
-
 @login_required
 def vista_carrito(request):
 
@@ -373,20 +353,17 @@ def vista_carrito(request):
         juego_nombre = request.POST.get('juego_nombre')
         juego_precio = request.POST.get('juego_precio')
         juego_imagen_url = request.POST.get('juego_imagen_url')
-
+        
         carrito = request.session.get('carrito', [])
-        print("carrito obtenido")
-        print(carrito)
+
         if juego_nombre != None :
             carrito.append({
                 'codigo_invent': codigo_invent,
                 'nombre': juego_nombre,
-                'precio': juego_precio,
+                'precio': int(juego_precio),
+                'cantidad': 1,
                 'imagen_url': juego_imagen_url,
             })
-        
-        
-
         request.session['carrito'] = carrito
 
         if 'eliminar_del_carrito' in request.POST:
@@ -401,8 +378,12 @@ def vista_carrito(request):
 
         if 'continuar' in request.POST:
             return redirect('metodo_pago')
-            
+    
     carrito = request.session.get('carrito', [])
+    subtotal = sum(int(item['precio']) for item in carrito)
+    
+    request.session['subtotal'] = subtotal
+
     return render(request, 'juegos/carrito.html', {'carrito': carrito})
 
 def metodo_pago(request):
