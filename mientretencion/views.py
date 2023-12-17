@@ -374,7 +374,7 @@ def crear_juego(request):
         juego.save()
 
         messages.success(request, 'El juego se ha creado correctamente.')
-        return redirect('vista_juegos')  # Redirigir a la página de visualización de juegos
+        return redirect('crear_juego')  # Redirigir a la página de visualización de juegos
 
     categorias = Categoria.objects.all()
     
@@ -463,26 +463,38 @@ def vista_error_404(request, exception):
     return render(request, '404.html', status=404)
 
 @login_required
+
 def contacto(request):
-    mensaje_exito = None
-
     if request.method == 'POST':
-        nombre = request.POST.get('nombre', '')
-        correo = request.POST.get('correo', '')
-        mensaje_texto = request.POST.get('mensaje', '')
+        nombre = request.POST['nombre']
+        correo = request.POST['correo']
+        mensaje = request.POST['mensaje']
 
-        # Crea un objeto MensajeContacto y guárdalo en la base de datos
-        mensaje_contacto = MensajeContacto(nombre=nombre, correo=correo, mensaje=mensaje_texto)
+        # Guardar en la base de datos
+        mensaje_contacto = MensajeContacto(nombre=nombre, correo=correo, mensaje=mensaje)
         mensaje_contacto.save()
 
-        mensaje_exito = f'Gracias por contactarte con nosotros, {nombre}. Te contactaremos a la brevedad.'
+        # Mostrar mensaje de éxito
+        messages.success(request, 'Mensaje enviado con éxito.')
 
-        # Redirige a la misma página con el mensaje de éxito
-        return render(request, 'auth/contacto.html', {'mensaje_exito': mensaje_exito})
+        return redirect('contacto')
 
-    return render(request, 'auth/contacto.html', {'mensaje_exito': mensaje_exito})
+    return render(request, 'auth/contacto.html')
+@login_required
+def lista_mensajes(request):
+    mensajes = MensajeContacto.objects.all()
+
+    if request.method == 'POST':
+        # Si se envió un formulario de eliminación
+        mensaje_id = request.POST.get('mensaje_id')
+        mensaje = get_object_or_404(MensajeContacto, id=mensaje_id)
+        mensaje.delete()
+        return redirect('lista_mensajes')
+
+    return render(request, 'auth/mensajes.html', {'mensajes': mensajes})
 
 def procesar_pedido(request):
+
     if request.method == 'POST':
         # Obtener datos del carrito desde la sesión
         carrito = request.session.get('carrito', [])

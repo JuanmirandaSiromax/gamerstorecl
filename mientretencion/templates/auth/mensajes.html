@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block css %}
+    <!-- Puedes agregar estilos adicionales aquí si es necesario -->
+{% endblock %}
+
+{% block contenido %}
+    <br>
+    <center>
+        <div class="box2">
+            <br>
+            <h1>Lista de Mensajes</h1>
+            <br>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Correo Electrónico</th>
+                        <th>Mensaje</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mensaje in mensajes %}
+                        <tr>
+                            <td>{{ mensaje.nombre }}</td>
+                            <td>{{ mensaje.correo }}</td>
+                            <td>{{ mensaje.mensaje }}</td>
+                            <td>
+                                <form method="post" action="{% url 'lista_mensajes' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="mensaje_id" value="{{ mensaje.id }}">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </center>
+{% endblock %}
