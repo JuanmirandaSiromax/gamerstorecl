@@ -66,26 +66,28 @@
         </table>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+  // Esperar a que el documento esté listo
+  $(document).ready(function() {
+    // Seleccionar todas las alertas con la clase 'alert'
+    var alerts = $('.alert');
+
+    // Iterar sobre cada alerta
+    alerts.each(function() {
+      // Obtener la alerta actual
+      var alert = $(this);
+
+      // Esperar 2 segundos y luego ocultar la alerta
+      setTimeout(function() {
+        alert.alert('close');
+      }, 2000);
+    });
+  });
+</script>
 
 {% endblock %}
-<script>
-    // Esperar a que el documento esté listo
-    $(document).ready(function() {
-      // Seleccionar todos los elementos con la clase alert y que no tengan la clase alert-dismissible
-      var alertMessages = $('.alert:not(.alert-dismissible)');
-  
-      // Iterar sobre los mensajes y ocultarlos después de 2 segundos
-      alertMessages.each(function() {
-        var currentAlert = $(this);
-  
-        setTimeout(function() {
-          currentAlert.fadeOut('slow', function() {
-            $(this).addClass('d-none');  // Agregar la clase d-none después de desvanecerse
-          });
-        }, 2000);  // Esperar 2000 milisegundos (2 segundos)
-      });
-    });
-  </script>
+
 {% block footer %}
     <h5>&copy;Copyright Pamela Francisca Marco Juan</h5>
 {% endblock footer %}

@@ -14,26 +14,26 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navColor">
+  <nav class="navbar navbar-expand-lg bg-orange">
     <div class="container">
-      <a class="navbar-brand" href="{% url 'home' %}">
+      <a class="navbar-brand" href="{% url 'index' %}">
         <img src="{% static '/imagenes/logo3.png' %}" alt="" width="200" height="55" style="background: none; border: none;">
       </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTexto" aria-controls="navbarTexto" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTexto">
-        <ul class="navbar-nav mr-auto">
+      
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if request.user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home' %}" style="color: #fff; margin-right: 60px;margin-left: 40px;">Inicio</a>
           </li>
-
+          {% endif %}
           <!-- Categorías -->
+          {% if request.user.is_authenticated %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff; margin-right: 60px;">
               Categorías
             </a>
-            {% if request.user.is_authenticated %}
+            
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'accion' %}">Acción</a></li>
               <li><a class="dropdown-item" href="{% url 'aventura' %}">Aventura</a></li>
@@ -41,12 +41,17 @@
               <li><a class="dropdown-item" href="{% url 'supervivencia' %}">Supervivencia</a></li>
               <li><a class="dropdown-item" href="{% url 'terror' %}">Terror</a></li>
             </ul>
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'contacto' %}" aria-current="page" style="color: #fff; margin-right: 60px;margin-left: 40px;">Contacto</a>
-            </li>
           </li>
-            {% endif %}
           
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'contacto' %}"style="color: #fff; margin-right: 60px;margin-left: 40px;">Contacto</a>
+          </li>
+          {% endif %}
+
+                  <!-- Categorías -->
+          <li class="nav-item">
+               <a class="nav-link" style="color: #fff; margin-right: 60px;"></a>
+          </li>
           {% if request.user.is_authenticated and request.user.is_superuser %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: #fff; margin-right: 60px;">
@@ -56,6 +61,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'listado_juegos' %}">Listado Juegos</a></li>
               <li><a class="dropdown-item" href="{% url 'listado_usuarios' %}">Listado usuarios</a></li>
+              <li><a class="dropdown-item" href="{% url 'lista_mensajes' %}">Lista Mensajes</a></li>
             </ul>
           </li>
           {% endif %}
