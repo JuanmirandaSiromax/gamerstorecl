@@ -274,12 +274,12 @@ def listado_juegos(request):
             'juegos': juegos,
             'perfil': perfil,
         }
-        return render(request, 'auth/home.html', context)
+        return render(request, 'juegos/listado_juegos.html', context)
     else:
         # El usuario no está autenticado, puedes manejarlo de acuerdo a tus necesidades
         return HttpResponse("Usuario no autenticado")
     
-@role_requiered('admin')
+@login_required
 def juegos_editar(request,id):
     juego = get_object_or_404(Juego, id=id)
     
@@ -306,8 +306,9 @@ def juegos_editar(request,id):
     }
     return render(request, 'juegos/juegos_editar.html', context)
 
+
    
-@role_requiered('admin')
+@login_required
 def crear_juego(request): 
 
     if request.method =='POST':
@@ -338,7 +339,7 @@ def crear_juego(request):
     }
     
     return render (request, 'juegos/crearjuego.html',contexto)
-@role_requiered('admin')
+@login_required
 def eliminar_juego(request, id):
     juego = get_object_or_404(Juego, id=id)
     juego.delete()
